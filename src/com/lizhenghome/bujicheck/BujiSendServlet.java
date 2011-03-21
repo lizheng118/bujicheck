@@ -1,13 +1,10 @@
 package com.lizhenghome.bujicheck;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,17 +20,17 @@ public class BujiSendServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 	throws IOException {
 		
-//		BufferedReader reader = request.getReader();
-//		StringBuilder sb = new StringBuilder();
-//		String line = reader.readLine();
-//		while (line != null) {
-//			sb.append(line + "\n");
-//			line = reader.readLine();
-//		}
-//		reader.close();
-//		String data = sb.toString();
+		BufferedReader reader = req.getReader();
+		StringBuilder sb = new StringBuilder();
+		String line = reader.readLine();
+		while (line != null) {
+			sb.append(line + "\n");
+			line = reader.readLine();
+		}
+		reader.close();
+		String data = sb.toString();
 //		
-		String data = "{phoneNumber=\"08033491218\", bujiStatus=\"0\", position=\"35.793962,139.791897\"}";
+		//String data = "{phoneNumber=\"08033491218\", bujiStatus=\"0\", position=\"35.793962,139.791897\"}";
 		JSONObject jsonObject = JSONObject.fromObject( data );
 		BujiInfo bujiInfo = (BujiInfo)JSONObject.toBean(jsonObject, BujiInfo.class);
 		bujiInfo.setSendDate(new Date());
